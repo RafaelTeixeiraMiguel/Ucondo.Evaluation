@@ -1,0 +1,6 @@
+@Ucondo.Evaluation_HostAddress = http://localhost:5271
+
+GET {{Ucondo.Evaluation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
