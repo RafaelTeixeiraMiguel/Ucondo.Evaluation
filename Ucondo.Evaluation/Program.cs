@@ -22,7 +22,8 @@ public class Program
 
             builder.Services.AddDbContext<DefaultContext>(opt =>
             {
-                opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+                opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("Ucondo.Evaluation.ORM"));
             });
 
             var app = builder.Build();

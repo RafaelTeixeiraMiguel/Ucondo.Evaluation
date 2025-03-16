@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.API", "Ucondo.Evaluation\Ucondo.Evaluation.API.csproj", "{1B2AAAA9-EEEB-4C30-960B-41EA334C6D6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.ORM", "ORM\Ucondo.Evaluation.ORM.csproj", "{0CEFA40C-95E3-4CC2-8DD8-35ACF09B7660}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.Domain", "Ucondo.Evaluation.Domain\Ucondo.Evaluation.Domain.csproj", "{3B859843-AFD8-4B75-88ED-AC0F8CD1FBDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.Common", "Ucondo.Evaluation.Common\Ucondo.Evaluation.Common.csproj", "{5090A69A-B094-4E8F-BB87-09A4B5F11030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.ORM", "Ucondo.Evaluation.ORM\Ucondo.Evaluation.ORM.csproj", "{ED868141-FED6-47AE-9D74-AEBC7703D2AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,18 @@ Global
 		{1B2AAAA9-EEEB-4C30-960B-41EA334C6D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B2AAAA9-EEEB-4C30-960B-41EA334C6D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B2AAAA9-EEEB-4C30-960B-41EA334C6D6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CEFA40C-95E3-4CC2-8DD8-35ACF09B7660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CEFA40C-95E3-4CC2-8DD8-35ACF09B7660}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CEFA40C-95E3-4CC2-8DD8-35ACF09B7660}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CEFA40C-95E3-4CC2-8DD8-35ACF09B7660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B859843-AFD8-4B75-88ED-AC0F8CD1FBDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B859843-AFD8-4B75-88ED-AC0F8CD1FBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B859843-AFD8-4B75-88ED-AC0F8CD1FBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B859843-AFD8-4B75-88ED-AC0F8CD1FBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5090A69A-B094-4E8F-BB87-09A4B5F11030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5090A69A-B094-4E8F-BB87-09A4B5F11030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5090A69A-B094-4E8F-BB87-09A4B5F11030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5090A69A-B094-4E8F-BB87-09A4B5F11030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED868141-FED6-47AE-9D74-AEBC7703D2AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED868141-FED6-47AE-9D74-AEBC7703D2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED868141-FED6-47AE-9D74-AEBC7703D2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED868141-FED6-47AE-9D74-AEBC7703D2AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
