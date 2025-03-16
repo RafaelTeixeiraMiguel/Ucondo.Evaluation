@@ -1,23 +1,61 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Serilog;
+using System.Reflection;
+using Ucondo.Evaluation.ORM;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.MapOpenApi();
+    public static void Main(string[] args)
+    {
+        try
+        {
+            Log.Information("Starting web application");
+            var corsPolicy = "CorsPolicy";
+
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<DefaultContext>(opt =>
+            {
+                opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            var app = builder.Build();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseCors(corsPolicy);
+
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<DefaultContext>();
+            context.Database.Migrate();
+            Seed.SeedData(context);
+
+            app.Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Application terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
