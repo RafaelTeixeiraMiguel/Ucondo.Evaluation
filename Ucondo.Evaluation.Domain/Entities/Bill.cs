@@ -7,10 +7,10 @@ using Ucondo.Evaluation.Domain.Common;
 
 namespace Ucondo.Evaluation.Domain.Entities
 {
-    public class Conta : BaseEntity
+    public class Bill : BaseEntity
     {
-        public string Codigo { get; set; }
-        public bool AceitaLancamentos { get; set; }
-        public string Tipo { get; set; }
+        public string Code { get; set; }
+        public bool AllowPayments { get; set; }
+        public string Type { get; set; }
     }
 }

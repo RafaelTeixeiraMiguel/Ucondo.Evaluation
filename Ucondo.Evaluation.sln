@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.Common", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.ORM", "Ucondo.Evaluation.ORM\Ucondo.Evaluation.ORM.csproj", "{ED868141-FED6-47AE-9D74-AEBC7703D2AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.Application", "Ucondo.Evaluation.Application\Ucondo.Evaluation.Application.csproj", "{76FEA284-6D88-4B7A-8839-55B275049092}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.IoC", "Ucondo.Evaluation.IoC\Ucondo.Evaluation.IoC.csproj", "{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{ED868141-FED6-47AE-9D74-AEBC7703D2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED868141-FED6-47AE-9D74-AEBC7703D2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED868141-FED6-47AE-9D74-AEBC7703D2AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76FEA284-6D88-4B7A-8839-55B275049092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FEA284-6D88-4B7A-8839-55B275049092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FEA284-6D88-4B7A-8839-55B275049092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76FEA284-6D88-4B7A-8839-55B275049092}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

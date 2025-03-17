@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Reflection;
+using MediatR;
+using Ucondo.Evaluation.Application;
 using Ucondo.Evaluation.ORM;
+using Ucondo.Evaluation.Common.Validation;
+using Ucondo.Evaluation.IoC;
+using Ucondo.Evaluation.API.Middleware;
 
 public class Program
 {
@@ -26,7 +30,23 @@ public class Program
                     b => b.MigrationsAssembly("Ucondo.Evaluation.ORM"));
             });
 
+            builder.RegisterDependencies();
+
+            builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(ApplicationLayer).Assembly);
+
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssemblies(
+                    typeof(Program).Assembly
+                );
+            });
+
+            builder.Services.AddApplicationServices();
+
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
             var app = builder.Build();
+            app.UseMiddleware<ValidationExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
             {
@@ -38,6 +58,7 @@ public class Program
 
             app.UseCors(corsPolicy);
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

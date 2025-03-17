@@ -9,7 +9,7 @@ namespace Ucondo.Evaluation.ORM
     {
         public DefaultContext(DbContextOptions<DefaultContext> options) : base(options) { }
 
-        public DbSet<Conta> Contas { get; set; }
+        public DbSet<Bill> Bills { get; set; }
     }
 
     public class DefaultContextFactory : IDesignTimeDbContextFactory<DefaultContext>
