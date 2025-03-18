@@ -3,9 +3,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ucondo.Evaluation.API.Common;
 using Ucondo.Evaluation.API.Features.Bills.CreateBill;
+using Ucondo.Evaluation.API.Features.Bills.DeleteBill;
 using Ucondo.Evaluation.API.Features.Bills.ListBill;
 using Ucondo.Evaluation.API.Features.Bills.UpdateBill;
 using Ucondo.Evaluation.Application.Bills.CreateBill;
+using Ucondo.Evaluation.Application.Bills.DeleteBill;
 using Ucondo.Evaluation.Application.Bills.ListBill;
 using Ucondo.Evaluation.Application.Bills.UpdateBill;
 
@@ -101,6 +103,32 @@ namespace Ucondo.Evaluation.API.Controllers
             {
                 Success = true,
                 Message = "Bill retrieved successfully",
+                Data = result
+            });
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ApiResponseWithData<DeleteBillResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteBill(Guid id, CancellationToken cancellationToken)
+        {
+            var request = new DeleteBillRequest();
+            var validator = new DeleteBillRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var command = new DeleteBillCommand(id);
+
+            var response = await _mediator.Send(command, cancellationToken);
+
+            var result = _mapper.Map<DeleteBillResult>(response);
+
+            return Ok(new ApiResponseWithData<DeleteBillResult>
+            {
+                Success = true,
+                Message = "Bill deleted successfully",
                 Data = result
             });
         }
