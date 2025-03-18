@@ -6,32 +6,17 @@ using Ucondo.Evaluation.Domain.Repositories;
 
 namespace Ucondo.Evaluation.Application.Bills.CreateBill
 {
-    /// <summary>
-    /// Handler for processing CreateBillCommand requests
-    /// </summary>
     public class CreateBillHandler : IRequestHandler<CreateBillCommand, CreateBillResult>
     {
         private readonly IBillRepository _billRepository;
         private readonly IMapper _mapper;
 
-        /// <summary>
-        /// Initializes a new instance of CreateBillHandler
-        /// </summary>
-        /// <param name="userRepository">The user repository</param>
-        /// <param name="mapper">The AutoMapper instance</param>
-        /// <param name="validator">The validator for CreateUserCommand</param>
         public CreateBillHandler(IBillRepository billRepository, IMapper mapper)
         {
             _billRepository = billRepository;
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Handles the CreateBillCommand request
-        /// </summary>
-        /// <param name="command">The CreateBill command</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>The created bill details</returns>
         public async Task<CreateBillResult> Handle(CreateBillCommand command, CancellationToken cancellationToken)
         {
             var validator = new CreateBillCommandValidator();

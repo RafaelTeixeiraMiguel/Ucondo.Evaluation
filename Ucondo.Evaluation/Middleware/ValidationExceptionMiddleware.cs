@@ -41,7 +41,8 @@ namespace Ucondo.Evaluation.API.Middleware
 
             var jsonOptions = new JsonSerializerOptions
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
             };
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response, jsonOptions));

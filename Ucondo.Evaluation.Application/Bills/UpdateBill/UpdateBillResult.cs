@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ucondo.Evaluation.Application.Bills.CreateBill
+namespace Ucondo.Evaluation.Application.Bills.UpdateBill
 {
-    public class CreateBillResult
+    public class UpdateBillResult
     {
         public Guid Id { get; set; }
     }

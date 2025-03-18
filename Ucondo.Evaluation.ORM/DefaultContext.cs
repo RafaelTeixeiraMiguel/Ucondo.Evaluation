@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 using Ucondo.Evaluation.Domain.Entities;
 
 namespace Ucondo.Evaluation.ORM
@@ -10,6 +11,17 @@ namespace Ucondo.Evaluation.ORM
         public DefaultContext(DbContextOptions<DefaultContext> options) : base(options) { }
 
         public DbSet<Bill> Bills { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Bill>()
+            .HasOne(b => b.ParentBill)
+            .WithMany()
+            .HasForeignKey(b => b.ParentBillId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 
     public class DefaultContextFactory : IDesignTimeDbContextFactory<DefaultContext>

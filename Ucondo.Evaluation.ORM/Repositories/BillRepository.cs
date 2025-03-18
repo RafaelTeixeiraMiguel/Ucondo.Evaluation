@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,45 +9,58 @@ using Ucondo.Evaluation.Domain.Repositories;
 
 namespace Ucondo.Evaluation.ORM.Repositories
 {
-    /// <summary>
-    /// Implementation of IBillRepository using Entity Framework Core
-    /// </summary>
     public class BillRepository : IBillRepository
     {
         private readonly DefaultContext _context;
 
-        /// <summary>
-        /// Initializes a new instance of UserRepository
-        /// </summary>
-        /// <param name="context">The database context</param>
         public BillRepository(DefaultContext context)
         {
             _context = context;
         }
 
-        public Task<Bill> CreateAsync(Bill bill, CancellationToken cancellationToken = default)
+        public async Task<Bill> CreateAsync(Bill bill, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await _context.Bills.AddAsync(bill, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+            return bill;
         }
 
-        public Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Bill?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Bills.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
-        public Task<Bill?> GetByCodeAsync(string code, CancellationToken cancellationToken = default)
+        public async Task<Bill?> GetByCodeAsync(string code, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Bills.FirstOrDefaultAsync(o => o.Code == code, cancellationToken);
         }
 
-        public Task<Bill?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<List<Bill>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var bills = await _context.Bills
+                .Include(s => s.ParentBill)
+                .ToListAsync(cancellationToken);
+
+            return bills;
         }
 
-        public Task<Bill> UpdateAsync(Guid id, Bill bill, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var bill = await GetByIdAsync(id, cancellationToken);
+            if (bill == null)
+                return false;
+
+            _context.Bills.Remove(bill);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+
+        public async Task<Bill> UpdateAsync(Bill bill, CancellationToken cancellationToken = default)
+        {
+            _context.Bills.Update(bill);
+
+            await _context.SaveChangesAsync(cancellationToken);
+            return bill;
         }
     }
 }

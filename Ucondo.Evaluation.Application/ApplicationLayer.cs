@@ -16,4 +16,9 @@ namespace Ucondo.Evaluation.Application
     /// other layers to programmatically reference the application layer's assembly.
     /// </remarks>
     public class ApplicationLayer { }
+
+    public class NotFoundException : Exception
+    {
+        public NotFoundException(string message) : base(message) { }
+    }
 }

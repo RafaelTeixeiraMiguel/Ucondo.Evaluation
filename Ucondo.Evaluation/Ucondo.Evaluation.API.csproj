@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ucondo.Evaluation.Application\Ucondo.Evaluation.Application.csproj" />
+    <ProjectReference Include="..\Ucondo.Evaluation.Domain\Ucondo.Evaluation.Domain.csproj" />
     <ProjectReference Include="..\Ucondo.Evaluation.IoC\Ucondo.Evaluation.IoC.csproj" />
     <ProjectReference Include="..\Ucondo.Evaluation.ORM\Ucondo.Evaluation.ORM.csproj" />
   </ItemGroup>
