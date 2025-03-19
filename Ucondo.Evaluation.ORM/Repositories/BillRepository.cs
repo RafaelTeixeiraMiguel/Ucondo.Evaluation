@@ -94,6 +94,11 @@ namespace Ucondo.Evaluation.ORM.Repositories
                 .Select(b => b.Code)
                 .ToListAsync(cancellationToken);
         }
+
+        public IQueryable<Bill> Query()
+        {
+            return _context.Bills.AsQueryable();
+        }
     }
 
     public class CodeSegmentComparer : IComparer<List<int>>

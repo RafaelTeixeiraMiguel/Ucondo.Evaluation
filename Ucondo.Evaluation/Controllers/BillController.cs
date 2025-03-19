@@ -83,16 +83,15 @@ namespace Ucondo.Evaluation.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponseWithData<ListBillResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ListBill(CancellationToken cancellationToken)
+        public async Task<IActionResult> ListBill([FromQuery] ListBillRequest request, CancellationToken cancellationToken)
         {
-            var request = new ListBillRequest();
             var validator = new ListBillRequestValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            var command = new ListBillCommand();
+            var command = _mapper.Map<ListBillCommand>(request);
 
             var response = await _mediator.Send(command, cancellationToken);
 

@@ -24,5 +24,7 @@ namespace Ucondo.Evaluation.Domain.Repositories
         Task<string> GetHighestChildrenCode(Guid parentId, CancellationToken cancellationToken = default);
 
         Task<List<string>> GetRootLevelCodesAsync(CancellationToken cancellationToken);
+
+        IQueryable<Bill> Query();
     }
 }

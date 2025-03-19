@@ -10,7 +10,7 @@ namespace Ucondo.Evaluation.API.Features.Bills.ListBill
         {
             CreateMap<ListBillRequest, ListBillCommand>();
             CreateMap<ListBillResult, ListBillResponse>();
-            CreateMap<List<Bill>, ListBillResult>().ForMember(dest => dest.Sales, opt => opt.MapFrom(src => src));
+            CreateMap<List<Bill>, ListBillResult>().ForMember(dest => dest.Bills, opt => opt.MapFrom(src => src));
         }
     }
 }

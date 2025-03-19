@@ -10,7 +10,10 @@ namespace Ucondo.Evaluation.Application.Bills.ListBill
 {
     public class ListBillResult
     {
-        public List<BillResult> Sales { get; set; }
+        public List<BillResult> Bills { get; set; }
+        public int TotalItems { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
     }
 
     public class BillResult
