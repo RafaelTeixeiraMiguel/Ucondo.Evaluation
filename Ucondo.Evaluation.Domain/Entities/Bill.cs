@@ -10,6 +10,7 @@ namespace Ucondo.Evaluation.Domain.Entities
 {
     public class Bill : BaseEntity
     {
+        public required string Name { get; set; }
         public required string Code { get; set; }
         public bool AllowPayments { get; set; }
         public BillType Type { get; set; }

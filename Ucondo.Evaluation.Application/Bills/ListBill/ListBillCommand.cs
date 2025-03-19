@@ -14,6 +14,7 @@ namespace Ucondo.Evaluation.Application.Bills.ListBill
     public class ListBillCommand : IRequest<ListBillResult>
     {
         public string? Code { get; set; }
+        public string? Name { get; set; }
         public bool? AllowPayments { get; set; }
         public BillType? Type { get; set; }
         public Guid? ParentBillId { get; set; }

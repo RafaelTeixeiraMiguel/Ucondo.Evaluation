@@ -31,6 +31,9 @@ namespace Ucondo.Evaluation.Application.Bills.ListBill
             if (!string.IsNullOrWhiteSpace(request.Code))
                 query = query.Where(b => b.Code == request.Code);
 
+            if (!string.IsNullOrWhiteSpace(request.Name))
+                query = query.Where(b => b.Name.Contains(request.Name));
+
             if (!string.IsNullOrWhiteSpace(request.CodeContains))
                 query = query.Where(b => b.Code.Contains(request.CodeContains));
 

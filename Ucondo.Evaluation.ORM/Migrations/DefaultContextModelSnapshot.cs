@@ -30,6 +30,10 @@ namespace Ucondo.Evaluation.ORM.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid?>("ParentBillId")
                         .HasColumnType("TEXT");
 
