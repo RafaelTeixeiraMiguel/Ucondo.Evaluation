@@ -18,7 +18,7 @@ namespace Ucondo.Evaluation.ORM.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Code = table.Column<string>(type: "TEXT", nullable: false),
                     AllowPayments = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Type = table.Column<string>(type: "TEXT", nullable: false),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
                     ParentBillId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

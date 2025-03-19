@@ -1,4 +1,6 @@
-﻿namespace Ucondo.Evaluation.API.Features.Bills.ListBill
+﻿using Ucondo.Evaluation.Domain.Enums;
+
+namespace Ucondo.Evaluation.API.Features.Bills.ListBill
 {
     public class ListBillResponse
     {
@@ -10,6 +12,6 @@
         public Guid Id { get; set; }
         public string Code { get; set; }
         public bool AllowPayments { get; set; }
-        public string Type { get; set; }
+        public BillType Type { get; set; }
     }
 }

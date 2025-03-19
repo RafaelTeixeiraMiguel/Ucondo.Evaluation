@@ -62,5 +62,56 @@ namespace Ucondo.Evaluation.ORM.Repositories
             await _context.SaveChangesAsync(cancellationToken);
             return bill;
         }
+
+        public async Task<string> GetHighestChildrenCode(Guid parentId, CancellationToken cancellationToken = default)
+        {
+            var children = await _context.Bills
+            .Where(b => b.ParentBillId == parentId)
+            .ToListAsync(cancellationToken);
+
+            if (!children.Any())
+                return null;
+
+            var billWithMaxCode = children
+            .OrderByDescending(b => GetCodeSegments(b.Code), new CodeSegmentComparer())
+            .First();
+
+            return billWithMaxCode.Code;
+        }
+
+        private List<int> GetCodeSegments(string code)
+        {
+            return code
+                .Split('.')
+                .Select(segment => int.TryParse(segment, out var num) ? num : 0)
+                .ToList();
+        }
+
+        public async Task<List<string>> GetRootLevelCodesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _context.Bills
+                .Where(b => b.ParentBillId == null)
+                .Select(b => b.Code)
+                .ToListAsync(cancellationToken);
+        }
+    }
+
+    public class CodeSegmentComparer : IComparer<List<int>>
+    {
+        public int Compare(List<int> x, List<int> y)
+        {
+            int minLength = Math.Min(x.Count, y.Count);
+
+            for (int i = 0; i < minLength; i++)
+            {
+                int comparison = x[i].CompareTo(y[i]);
+                if (comparison != 0)
+                {
+                    return comparison;
+                }
+            }
+
+            return x.Count.CompareTo(y.Count);  // Se os códigos forem iguais até o nível mais profundo, o mais curto é considerado menor
+        }
     }
 }

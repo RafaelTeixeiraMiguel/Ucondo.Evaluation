@@ -20,5 +20,9 @@ namespace Ucondo.Evaluation.Domain.Repositories
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 
         Task<Bill> UpdateAsync(Bill bill, CancellationToken cancellationToken = default);
+
+        Task<string> GetHighestChildrenCode(Guid parentId, CancellationToken cancellationToken = default);
+
+        Task<List<string>> GetRootLevelCodesAsync(CancellationToken cancellationToken);
     }
 }

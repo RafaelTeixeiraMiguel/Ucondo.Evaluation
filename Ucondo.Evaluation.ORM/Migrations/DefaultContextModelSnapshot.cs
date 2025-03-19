@@ -33,9 +33,8 @@ namespace Ucondo.Evaluation.ORM.Migrations
                     b.Property<Guid?>("ParentBillId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -47,16 +46,11 @@ namespace Ucondo.Evaluation.ORM.Migrations
             modelBuilder.Entity("Ucondo.Evaluation.Domain.Entities.Bill", b =>
                 {
                     b.HasOne("Ucondo.Evaluation.Domain.Entities.Bill", "ParentBill")
-                        .WithMany("ChildBills")
+                        .WithMany()
                         .HasForeignKey("ParentBillId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ParentBill");
-                });
-
-            modelBuilder.Entity("Ucondo.Evaluation.Domain.Entities.Bill", b =>
-                {
-                    b.Navigation("ChildBills");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Ucondo.Evaluation.API.Common;
 using Ucondo.Evaluation.API.Features.Bills.CreateBill;
 using Ucondo.Evaluation.API.Features.Bills.DeleteBill;
+using Ucondo.Evaluation.API.Features.Bills.GetSuggestedCode;
 using Ucondo.Evaluation.API.Features.Bills.ListBill;
 using Ucondo.Evaluation.API.Features.Bills.UpdateBill;
 using Ucondo.Evaluation.Application.Bills.CreateBill;
 using Ucondo.Evaluation.Application.Bills.DeleteBill;
+using Ucondo.Evaluation.Application.Bills.GetSuggestedCode;
 using Ucondo.Evaluation.Application.Bills.ListBill;
 using Ucondo.Evaluation.Application.Bills.UpdateBill;
 
@@ -129,6 +131,36 @@ namespace Ucondo.Evaluation.API.Controllers
             {
                 Success = true,
                 Message = "Bill deleted successfully",
+                Data = result
+            });
+        }
+
+        [HttpGet("{parentId}")]
+        [ProducesResponseType(typeof(ApiResponseWithData<GetSuggestedCodeResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetSuggestedCode(Guid parentId, CancellationToken cancellationToken)
+        {
+            var request = new GetSuggestedCodeRequest { ParentId = parentId };
+            var validator = new GetSuggestedCodeValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+
+            var command = _mapper.Map<GetSuggestedCodeCommand>(request);
+
+            var response = await _mediator.Send(command, cancellationToken);
+
+            if (response == null)
+                return NotFound();
+
+            var result = _mapper.Map<GetSuggestedCodeResult>(response);
+
+            return Ok(new ApiResponseWithData<GetSuggestedCodeResult>
+            {
+                Success = true,
+                Message = "Next code successfully suggested",
                 Data = result
             });
         }

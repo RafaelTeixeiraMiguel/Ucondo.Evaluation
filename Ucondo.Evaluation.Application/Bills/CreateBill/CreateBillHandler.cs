@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
+using System.Threading;
 using Ucondo.Evaluation.Domain.Entities;
+using Ucondo.Evaluation.Domain.Enums;
 using Ucondo.Evaluation.Domain.Repositories;
+using Ucondo.Evaluation.Domain.Validation;
 
 namespace Ucondo.Evaluation.Application.Bills.CreateBill
 {
@@ -30,6 +33,15 @@ namespace Ucondo.Evaluation.Application.Bills.CreateBill
                 throw new InvalidOperationException($"Bill with code {command.Code} already exists");
 
             var bill = _mapper.Map<Bill>(command);
+
+            if (bill.ParentBillId != null && bill.ParentBillId != Guid.Empty)
+            {
+                var parentValidator = new ParentBillValidator(_billRepository);
+                var parentValidationResult = await parentValidator.ValidateAsync(bill, cancellationToken);
+
+                if (!parentValidationResult.IsValid)
+                    throw new ValidationException(parentValidationResult.Errors);
+            }
 
             var createdBill = await _billRepository.CreateAsync(bill, cancellationToken);
             var result = _mapper.Map<CreateBillResult>(createdBill);
