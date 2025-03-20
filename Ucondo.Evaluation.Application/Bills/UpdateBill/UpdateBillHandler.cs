@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Ucondo.Evaluation.Application.Bills.CreateBill;
 using Ucondo.Evaluation.Domain.Repositories;
+using Ucondo.Evaluation.Domain.Validation;
 
 namespace Ucondo.Evaluation.Application.Bills.UpdateBill
 {
@@ -18,6 +20,11 @@ namespace Ucondo.Evaluation.Application.Bills.UpdateBill
 
         public async Task<UpdateBillResult> Handle(UpdateBillCommand command, CancellationToken cancellationToken)
         {
+            var validator = new UpdateBillCommandValidator();
+            var validationResult = await validator.ValidateAsync(command, cancellationToken);
+
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult.Errors);
 
             var bill = await _billRepository.GetByIdAsync(command.Id, cancellationToken);
 
@@ -26,11 +33,14 @@ namespace Ucondo.Evaluation.Application.Bills.UpdateBill
                 throw new NotFoundException($"Bill with ID {command.Id} not found.");
             }
 
-            var validator = new UpdateBillCommandValidator();
-            var validationResult = await validator.ValidateAsync(command, cancellationToken);
+            if (bill.ParentBillId != null && bill.ParentBillId != Guid.Empty)
+            {
+                var parentValidator = new ParentBillValidator(_billRepository);
+                var parentValidationResult = await parentValidator.ValidateAsync(bill, cancellationToken);
 
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
+                if (!parentValidationResult.IsValid)
+                    throw new ValidationException(parentValidationResult.Errors);
+            }
 
             _mapper.Map(command, bill);
 

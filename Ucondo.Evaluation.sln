@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.Applicati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.IoC", "Ucondo.Evaluation.IoC\Ucondo.Evaluation.IoC.csproj", "{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucondo.Evaluation.Tests", "Ucondo.Evaluation.Tests\Ucondo.Evaluation.Tests.csproj", "{C5297163-F366-4862-A09F-49E6E20A7D51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63E1B7E2-CE00-40BD-9E5C-331D3C32296C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5297163-F366-4862-A09F-49E6E20A7D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5297163-F366-4862-A09F-49E6E20A7D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5297163-F366-4862-A09F-49E6E20A7D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5297163-F366-4862-A09F-49E6E20A7D51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

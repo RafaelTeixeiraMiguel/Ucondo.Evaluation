@@ -14,7 +14,6 @@ namespace Ucondo.Evaluation.Application.Bills.CreateBill
         public CreateBillCommandValidator()
         {
             RuleFor(bill => bill.Code).SetValidator(new CodeValidator());
-            RuleFor(bill => bill.Type).SetValidator(new TypeValidator());
             RuleFor(bill => bill.Name).SetValidator(new NameValidator());
         }
     }

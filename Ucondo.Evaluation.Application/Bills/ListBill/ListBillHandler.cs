@@ -73,7 +73,6 @@ namespace Ucondo.Evaluation.Application.Bills.ListBill
             var skip = (request.Page - 1) * request.PageSize;
             var totalItems = await query.CountAsync(cancellationToken);
             var items = await query.Skip(skip).Take(request.PageSize).ToListAsync(cancellationToken);
-
             var mappedItems = _mapper.Map<List<BillResult>>(items);
 
             return new ListBillResult
