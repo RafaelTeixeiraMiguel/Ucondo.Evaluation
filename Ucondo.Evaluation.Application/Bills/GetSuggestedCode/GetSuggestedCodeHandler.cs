@@ -29,11 +29,11 @@ namespace Ucondo.Evaluation.Application.Bills.GetSuggestedCode
             if (parentBill == null)
                 throw new NotFoundException("Parent bill not found.");
 
-            var currentCode = await _billRepository.GetHighestChildrenCode(parentBill.Id, cancellationToken);
+            var parentBillId = parentBill.Id;
+            var currentCode = await _billRepository.GetHighestChildrenCode(parentBillId, cancellationToken);
 
             while (true)
             {
-
                 if (currentCode == null)
                 {
                     return new GetSuggestedCodeResult
@@ -49,10 +49,19 @@ namespace Ucondo.Evaluation.Application.Bills.GetSuggestedCode
                 {
                     codeParts[codeParts.Count - 1] = (lastSegment + 1).ToString();
                     var nextCode = string.Join(".", codeParts);
-                    return new GetSuggestedCodeResult
+
+                    var existingCode = await _billRepository.GetByCodeAsync(nextCode, cancellationToken);
+
+                    if(existingCode == null)
                     {
-                        Code = nextCode
-                    };
+                        return new GetSuggestedCodeResult
+                        {
+                            Code = nextCode
+                        };
+                    }
+                    currentCode = existingCode.Code;
+                    continue;
+
                 }
 
                 currentCode = currentCode.Replace($".{lastSegment.ToString()}", "");
